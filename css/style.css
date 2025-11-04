@@ -548,3 +548,30 @@ h6,
 .copyright a:hover {
     color: var(--primary);
 }
+
+
+/* Medium screens (Tablets, ≤992px) */
+@media (max-width: 992px) {
+  .display-1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
+
+/* Small screens (Mobiles, ≤768px) */
+@media (max-width: 768px) {
+  .display-1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Extra small screens (≤480px) */
+@media (max-width: 480px) {
+  .display-1 {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
