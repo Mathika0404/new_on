@@ -822,55 +822,50 @@
 
             
 
-<form id="contactForm" class="p-5 bg-white shadow rounded">
+<form id="contactForm" class="p-5 bg-white shadow rounded" novalidate>
       
-      <h2 class="h4 text-black mb-5">Contact Form</h2>
+  <h2 class="h4 text-black mb-5">Contact Form</h2>
 
-      <div class="row form-group">
-        <div class="col-md-6 mb-3 mb-md-0">
-          <label class="text-black" for="fname">First Name</label>
-          <input type="text" id="fname" class="form-control">
-          <div class="error-message" id="fnameError"></div>
-        </div>
-        <div class="col-md-6">
-          <label class="text-black" for="lname">Last Name</label>
-          <input type="text" id="lname" class="form-control">
-          <div class="error-message" id="lnameError"></div>
-        </div>
-      </div>
+  <div class="row form-group">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <label class="text-black" for="fname">First Name</label>
+      <input type="text" id="fname" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="text-black" for="lname">Last Name</label>
+      <input type="text" id="lname" class="form-control">
+    </div>
+  </div>
 
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label class="text-black" for="email">Email</label>
-          <input type="email" id="email" class="form-control">
-          <div class="error-message" id="emailError"></div>
-        </div>
-      </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <label class="text-black" for="email">Email</label>
+      <input type="text" id="email" class="form-control"> <!-- change type="email" to type="text" -->
+    </div>
+  </div>
 
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label class="text-black" for="subject">Subject</label>
-          <input type="text" id="subject" class="form-control">
-          <div class="error-message" id="subjectError"></div>
-        </div>
-      </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <label class="text-black" for="subject">Subject</label>
+      <input type="text" id="subject" class="form-control">
+    </div>
+  </div>
 
-      <div class="row form-group">
-        <div class="col-md-12">
-          <label class="text-black" for="message">Message</label>
-          <textarea id="message" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
-          <div class="error-message" id="messageError"></div>
-        </div>
-      </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <label class="text-black" for="message">Message</label>
+      <textarea id="message" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..."></textarea>
+    </div>
+  </div>
 
-      <div class="row form-group">
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-primary btn-md text-white">Send Message</button>
-        </div>
-      </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary btn-md text-white">Send Message</button>
+    </div>
+  </div>
 
-    </form>
-            </div>
+</form>          
+  </div>
           
         </div>
       </div>
@@ -960,42 +955,43 @@
   
   <script src="js/main.js"></script>
 
-      <script>
-    document.getElementById("contactForm").addEventListener("submit", function(event) {
-      event.preventDefault(); // Prevent form submission
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent default form submission
 
-      let valid = true;
+  const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const subject = document.getElementById("subject").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-      // Helper function for validation
-      function showError(id, message) {
-        const input = document.getElementById(id);
-        const errorDiv = document.getElementById(id + "Error");
+  const errors = [];
 
-        if (message) {
-          errorDiv.textContent = message;
-          input.classList.add("error");
-          valid = false;
-        } else {
-          errorDiv.textContent = "";
-          input.classList.remove("error");
-        }
-      }
+  // Validate fields
+  if (!fname) errors.push("❌ Please enter your first name.");
+  if (!lname) errors.push("❌ Please enter your last name.");
+  if (!email) {
+    errors.push("❌ Please enter your email.");
+  } else {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      errors.push("❌ Please enter a valid email address.");
+    }
+  }
+  if (!subject) errors.push("❌ Please enter a subject.");
+  if (!message) errors.push("❌ Please enter your message.");
 
-      // Validate fields
-      showError("fname", document.getElementById("fname").value.trim() === "" ? "First name is required" : "");
-      showError("lname", document.getElementById("lname").value.trim() === "" ? "Last name is required" : "");
-      showError("email", document.getElementById("email").value.trim() === "" ? "Email is required" : "");
-      showError("subject", document.getElementById("subject").value.trim() === "" ? "Subject is required" : "");
-      showError("message", document.getElementById("message").value.trim() === "" ? "Message is required" : "");
+  // Show all errors in a single popup alert
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
+  } else {
+    // All valid, redirect
+    window.location.href = "404.html";
+  }
+});
+</script>
 
-      // If all fields are valid, submit or redirect
-      if (valid) {
-        alert("✅Message sent successfully!");
-        // Example redirect:
-        // window.location.href = "404.html";
-      }
-    });
-  </script>
-  
-  </body>
+
+</script>
+</body>
 </html>
