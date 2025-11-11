@@ -148,3 +148,120 @@ form div.incorrect input {
 #error-message {
   color: #f06272;
 }
+
+/* ===== Forgot Password Modal ===== */
+#forgot-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  z-index: 10;
+}
+
+#forgot-panel.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.forgot-content {
+  background: var(--base-color);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: min(90%, 400px);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transform: translateY(-50px);
+  animation: slideDown 0.6s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.forgot-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.forgot-content p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+#forgot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#forgot-form input {
+  height: 45px;
+  padding: 10px;
+  font: inherit;
+  border: 2px solid var(--input-color);
+  border-radius: 10px;
+  background: var(--input-color);
+  transition: 0.3s;
+}
+
+#forgot-form input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+#forgot-form button {
+  border: none;
+  border-radius: 1000px;
+  padding: 0.7em;
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: var(--base-color);
+  transition: 0.3s;
+}
+
+#forgot-form button:hover {
+  background-color: var(--text-color);
+}
+
+#forgot-form #cancel-forgot {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
+}
+
+#forgot-form #cancel-forgot:hover {
+  background-color: var(--text-color);
+  color: var(--base-color);
+}
+
+#forgot-message {
+  color: var(--accent-color);
+  margin-top: 10px;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+

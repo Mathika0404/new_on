@@ -78,3 +78,45 @@ allInputs.forEach(input => {
     }
   })
 })
+
+const forgotLink = document.getElementById('forgot-password-link');
+const forgotPanel = document.getElementById('forgot-panel');
+const cancelForgot = document.getElementById('cancel-forgot');
+const forgotForm = document.getElementById('forgot-form');
+const forgotEmail = document.getElementById('forgot-email');
+const forgotMessage = document.getElementById('forgot-message');
+
+// Show modal
+forgotLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  forgotPanel.classList.add('active');
+});
+
+// Hide modal
+cancelForgot.addEventListener('click', () => {
+  forgotPanel.classList.remove('active');
+  forgotMessage.innerText = '';
+  forgotEmail.value = '';
+});
+
+// Simulate reset email sending
+forgotForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = forgotEmail.value.trim();
+
+  if (email === '') {
+    forgotMessage.style.color = '#f06272';
+    forgotMessage.innerText = 'Please enter your email.';
+    return;
+  }
+
+  forgotMessage.style.color = 'green';
+  forgotMessage.innerText = 'A password reset link has been sent!';
+  forgotEmail.value = '';
+
+  // Close panel automatically after 2 seconds
+  setTimeout(() => {
+    forgotPanel.classList.remove('active');
+    forgotMessage.innerText = '';
+  }, 2000);
+});
