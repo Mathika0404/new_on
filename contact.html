@@ -79,7 +79,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                                             <div class="nav-item dropdown">
-      <a href="#" class="nav-link dropdown-toggle active" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a href="index.html" class="nav-link dropdown-toggle active" id="homeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Home
       </a>
       <div class="dropdown-menu border-light m-0" aria-labelledby="homeDropdown">
@@ -100,6 +100,7 @@
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        <a href="./signin/login.html" class="nav-item nav-link">Login</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
                     <a class="btn btn-light btn-sm-square rounded-circle ms-3" href="404.html">
@@ -221,19 +222,19 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-4">Services</h4>
-                    <a class="btn btn-link" >Financial Planning</a>
-                    <a class="btn btn-link" >Cash Investment</a>
-                    <a class="btn btn-link" >Financial Consultancy</a>
-                    <a class="btn btn-link" >Business Loans</a>
-                    <a class="btn btn-link" >Business Analysis</a>
+        <a class="btn btn-link" href="404.html">Financial Planning</a>
+        <a class="btn btn-link" href="404.html">Cash Investment</a>
+        <a class="btn btn-link" href="404.html">Financial Consultancy</a>
+        <a class="btn btn-link" href="404.html">Business Loans</a>
+        <a class="btn btn-link" href="404.html">Business Analysis</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-4">Quick Links</h4>
-                    <a class="btn btn-link" href="404.html">Home</a>
-                    <a class="btn btn-link" href="404.html">About Us</a>
-                    <a class="btn btn-link" href="404.html">Our Team</a>
-                    <a class="btn btn-link" href="404.html">Our Services</a>
-                    <a class="btn btn-link" href="404.html">Contact Us</a>
+                    <a class="btn btn-link" href="index.html">Home</a>
+                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="team.html">Our Team</a>
+                    <a class="btn btn-link" href="service.html">Our Services</a>
+                    <a class="btn btn-link" href="contact.html">Contact Us</a>
                 </div>
 <div class="col-lg-3 col-md-6">
   <h4 class="text-white mb-4">Our Location</h4>
@@ -280,43 +281,39 @@ document.getElementById("contactForm").addEventListener("submit", function(event
   event.preventDefault();
 
   let isValid = true;
+  let errors = [];
 
   // Get all inputs
   const fields = ["name", "email", "subject", "message"];
+
   fields.forEach(id => {
     const input = document.getElementById(id);
-    const error = input.parentElement.querySelector(".error-message");
 
     // Basic validation
     if (input.value.trim() === "") {
-      input.classList.add("error");
-      error.style.display = "block";
+      errors.push(`Please enter your ${id}.`);
       isValid = false;
-    } else {
-      input.classList.remove("error");
-      error.style.display = "none";
     }
 
     // Email format validation
     if (id === "email" && input.value.trim() !== "") {
       const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
       if (!emailPattern.test(input.value.trim())) {
-        input.classList.add("error");
-        error.textContent = "Please enter a valid email address";
-        error.style.display = "block";
+        errors.push("Please enter a valid email address.");
         isValid = false;
-      } else {
-        error.style.display = "none";
       }
     }
   });
 
-  if (isValid) {
-    alert("✅ Form submitted successfully!");
-    document.getElementById("contactForm").reset();
+  // Show popup messages only
+  if (!isValid) {
+    alert(errors.join("\n"));
+  } else {
+    window.location.href = "404.html";
   }
 });
 </script>
+
 </body>
 
 </html>

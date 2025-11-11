@@ -116,33 +116,29 @@
 function validateForm(event) {
   event.preventDefault();
 
-  // Get field values
-  const fields = [
-    { id: "name", errorId: "error-name", label: "Please enter your name" },
-    { id: "mail", errorId: "error-mail", label: "Please enter your email" },
-    { id: "mobile", errorId: "error-mobile", label: "Please enter your mobile number" },
-    { id: "subject", errorId: "error-subject", label: "Please enter a subject" },
-    { id: "message", errorId: "error-message", label: "Please enter your message" }
-  ];
+  const name = document.getElementById("name").value.trim();
+  const mail = document.getElementById("mail").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const subject = document.getElementById("subject").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-  let valid = true;
+  let errors = [];
 
-  // Clear old messages
-  fields.forEach(f => document.getElementById(f.errorId).textContent = "");
+  if (!name) errors.push("Please enter your name.");
+  if (!mail) {
+    errors.push("Please enter your email.");
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+    errors.push("Please enter a valid email address.");
+  }
+  if (!mobile) errors.push("Please enter your mobile number.");
+  if (!subject) errors.push("Please enter a subject.");
+  if (!message) errors.push("Please enter your message.");
 
-  // Check each field
-  fields.forEach(f => {
-    const value = document.getElementById(f.id).value.trim();
-    if (!value) {
-      document.getElementById(f.errorId).textContent = f.label;
-      valid = false;
-    }
-  });
-
-  // If valid, you can submit form or show success message
-  if (valid) {
-    alert("✅ Thank you! Your request has been submitted successfully.");
-    document.getElementById("callbackForm").reset();
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
+  } else {
+    window.location.href = "404.html";
   }
 }
+
 

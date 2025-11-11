@@ -3,167 +3,75 @@ const firstname_input = document.getElementById('firstname-input');
 const email_input = document.getElementById('email-input');
 const password_input = document.getElementById('password-input');
 const repeat_password_input = document.getElementById('repeat-password-input');
-const error_message = document.getElementById('error-message');
 
-// ----------------------
-// FORM SUBMIT VALIDATION
-// ----------------------
+// Email validation function
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Handle form submit
 form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
   let errors = [];
 
   if (firstname_input) {
-    // ✅ Signup form
+    // Signup form
     errors = getSignupFormErrors(
       firstname_input.value,
       email_input.value,
       password_input.value,
       repeat_password_input.value
     );
-
-    if (errors.length > 0) {
-      e.preventDefault();
-      error_message.innerText = errors.join(". ");
-    } else {
-      e.preventDefault(); // stop reload
-      alert("✅ Signup successfully!");
-      // Optional redirect:
-      // window.location.href = "login.html";
-    }
-
   } else {
-    // ✅ Login form
+    // Login form
     errors = getLoginFormErrors(email_input.value, password_input.value);
-
-    if (errors.length > 0) {
-      e.preventDefault();
-      error_message.innerText = errors.join(". ");
-    } else {
-      e.preventDefault(); // stop reload
-      alert("✅ Logged in successfully!");
-      // Optional redirect:
-      // window.location.href = "dashboard.html";
-    }
-  }
-});
-
-// ----------------------
-// SIGNUP FORM VALIDATION
-// ----------------------
-function getSignupFormErrors(firstname, email, password, repeatPassword) {
-  let errors = [];
-
-  if (firstname === '' || firstname == null) {
-    errors.push('Firstname is required');
-    firstname_input.parentElement.classList.add('incorrect');
-  }
-  if (email === '' || email == null) {
-    errors.push('Email is required');
-    email_input.parentElement.classList.add('incorrect');
-  }
-  if (password === '' || password == null) {
-    errors.push('Password is required');
-    password_input.parentElement.classList.add('incorrect');
-  }
-  if (password.length < 8) {
-    errors.push('Password must have at least 8 characters');
-    password_input.parentElement.classList.add('incorrect');
-  }
-  if (password !== repeatPassword) {
-    errors.push('Password does not match repeated password');
-    password_input.parentElement.classList.add('incorrect');
-    repeat_password_input.parentElement.classList.add('incorrect');
   }
 
-  return errors;
-}
-
-// ----------------------
-// LOGIN FORM VALIDATION
-// ----------------------
-function getLoginFormErrors(email, password) {
-  let errors = [];
-
-  if (email === '' || email == null) {
-    errors.push('Email is required');
-    email_input.parentElement.classList.add('incorrect');
-  }
-  if (password === '' || password == null) {
-    errors.push('Password is required');
-    password_input.parentElement.classList.add('incorrect');
-  }
-
-  return errors;
-}
-
-// ----------------------
-// REMOVE ERROR ON INPUT
-// ----------------------
-const allInputs = [firstname_input, email_input, password_input, repeat_password_input].filter(input => input != null);
-
-allInputs.forEach(input => {
-  input.addEventListener('input', () => {
-    if (input.parentElement.classList.contains('incorrect')) {
-      input.parentElement.classList.remove('incorrect');
-      error_message.innerText = '';
-    }
-  });
-});
-
-// ----------------------
-// FORGOT PASSWORD MODAL
-// ----------------------
-const forgotLink = document.getElementById('forgot-password-link');
-const forgotPanel = document.getElementById('forgot-panel');
-const cancelForgot = document.getElementById('cancel-forgot');
-const forgotForm = document.getElementById('forgot-form');
-const forgotEmail = document.getElementById('forgot-email');
-const forgotMessage = document.getElementById('forgot-message');
-
-// Show modal
-forgotLink.addEventListener('click', (e) => {
-  e.preventDefault();
-  forgotPanel.classList.add('active');
-});
-
-// Hide modal
-cancelForgot.addEventListener('click', () => {
-  forgotPanel.classList.remove('active');
-  forgotMessage.innerText = '';
-  forgotEmail.value = '';
-});
-
-// Simulate reset email sending
-forgotForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = forgotEmail.value.trim();
-
-  if (email === '') {
-    forgotMessage.style.color = '#f06272';
-    forgotMessage.innerText = 'Please enter your email.';
-    return;
-  }
-
-  forgotMessage.style.color = 'green';
-  forgotMessage.innerText = 'A password reset link has been sent!';
-  forgotEmail.value = '';
-
-  // Close panel automatically after 2 seconds
-  setTimeout(() => {
-    forgotPanel.classList.remove('active');
-    forgotMessage.innerText = '';
-  }, 2000);
-});
-
-// ----------------------
-// RESET LINK ALERT (if using button instead of form)
-// ----------------------
-function sendResetLink() {
-  const emailInput = document.getElementById('forgot-email');
-  const email = emailInput.value.trim();
-
-  if (email === "") {
-    alert("⚠️ Please enter your email address.");
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
   } else {
-    alert("✅ A password reset link has been sent to your email!");
+    // alert("Form submitted successfully!");
+    window.location.href = "404.html"; // or dashboard.html
   }
+});
+
+// Signup validation
+function getSignupFormErrors(firstname, email, password, repeatPassword) {
+  const errors = [];
+
+  if (!firstname.trim()) errors.push("Firstname is required.");
+
+  if (!email.trim()) errors.push("Email is required.");
+  else if (!isValidEmail(email)) errors.push("Please enter a valid email address.");
+
+  if (!password.trim()) errors.push("Password is required.");
+  else if (password.length < 8) errors.push("Password must have at least 8 characters.");
+
+  if (password !== repeatPassword)
+    errors.push("Password does not match repeated password.");
+
+  return errors;
+}
+
+// Login validation
+function getLoginFormErrors(email, password) {
+  const errors = [];
+
+  if (!email.trim()) errors.push("Email is required.");
+  else if (!isValidEmail(email)) errors.push("Please enter a valid email address.");
+
+  if (!password.trim()) errors.push("Password is required.");
+
+  return errors;
+}
+
+// Forgot password redirect
+const forgotLink = document.getElementById('forgot-password-link');
+if (forgotLink) {
+  forgotLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = "404.html";
+  });
 }

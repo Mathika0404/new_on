@@ -1740,7 +1740,6 @@ body:after {
   text-transform: capitalize;
   font-size: 15px;
   transition: 0.3s;
-  text-decoration: none;
 }
 
 .footer .btn.btn-link::before {
@@ -1751,7 +1750,11 @@ body:after {
   color: var(--primary);
 }
 
-
+.footer .btn.btn-link:hover {
+  color: var(--primary);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
 
 .footer h4 {
   font-weight: 600;
