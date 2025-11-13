@@ -75,13 +75,15 @@
      id="homeDropdown"
      role="button"
      data-bs-toggle="dropdown"
-     aria-expanded="false">
+     aria-expanded="false" >
     Home
   </a>
   <div class="dropdown-menu border-light m-0" aria-labelledby="homeDropdown">
+    <a href="./index.html" class="dropdown-item">Home Page 1</a>
     <a href="./home_page2/index2.html" class="dropdown-item">Home Page 2</a>
   </div>
 </div>
+
                     <a href="about.html" class="nav-item nav-link active">About</a>
                     <a href="service.html" class="nav-item nav-link">Services</a>
                     <div class="nav-item dropdown">
@@ -91,10 +93,11 @@
                             <a href="feature.html" class="dropdown-item">Features</a>
                             <a href="team.html" class="dropdown-item">Team Member</a>
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="dashboard.html" class="dropdown-item">Dashboard</a>
+                           
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
+                     <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
                         <a href="./signin/login.html" class="nav-item nav-link">Login</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
@@ -376,12 +379,14 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>
-  // Make the "Home" link navigate when clicked, but still allow dropdown toggle
-  document.getElementById("homeDropdown").addEventListener("click", function (e) {
-    if (!this.classList.contains("show") && !e.target.closest(".dropdown-menu")) {
-      // Go to index.html if dropdown isn't open yet
-      window.location.href = "index.html";
+<script>
+  const homeDropdown = document.getElementById("homeDropdown");
+
+  // Let Bootstrap handle the dropdown toggle
+  homeDropdown.addEventListener("click", function (e) {
+    // If the user clicked the arrow (dropdown toggle), don't navigate
+    if (e.target.closest('[data-bs-toggle="dropdown"]')) {
+      e.preventDefault(); // stop navigation so dropdown can open
     }
   });
 </script>

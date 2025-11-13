@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fincheck Dashboard - Pro Animated</title>
+  <title>Fincheck Dashboard - Unified</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
@@ -15,7 +15,9 @@
       --accent-pink: #ff9bb0;
       --accent-green: #66ffb3;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Inter', sans-serif;
       background: radial-gradient(circle at top left, #21293c, #0f1724);
@@ -66,12 +68,6 @@
       font-weight: bold;
     }
 
-    .nav {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
     .nav a {
       text-decoration: none;
       color: var(--muted);
@@ -79,6 +75,7 @@
       border-radius: 8px;
       transition: 0.3s;
       cursor: pointer;
+      display: block;
     }
 
     .nav a.active, .nav a:hover {
@@ -93,19 +90,15 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
-    section.page {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-    section.page.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .panel {
+      background: rgba(255,255,255,0.03);
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 16px;
     }
 
     .metrics {
@@ -118,29 +111,11 @@
       padding: 16px;
       border-radius: 12px;
       color: #111;
-      transform: translateY(10px);
-      opacity: 0;
-      animation: slideUp 0.6s forwards;
     }
-
-    @keyframes slideUp {
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .metric:nth-child(1) { animation-delay: 0.1s; }
-    .metric:nth-child(2) { animation-delay: 0.3s; }
-    .metric:nth-child(3) { animation-delay: 0.5s; }
 
     .metric h4 { font-size: 14px; margin-bottom: 6px; }
     .metric .value { font-size: 22px; font-weight: 700; }
     .metric .muted { font-size: 12px; opacity: 0.7; }
-
-    .panel {
-      background: rgba(255,255,255,0.03);
-      padding: 18px;
-      border-radius: 12px;
-      margin-top: 16px;
-    }
 
     .two-col {
       display: grid;
@@ -183,104 +158,86 @@
       <div>
         <div class="brand"><div class="logo">S</div>FINANCE</div>
         <nav class="nav">
-          <a class="active" data-page="dashboard">Dashboard</a>
-          <a data-page="invest">Invest</a>
-          <a data-page="transactions">Transactions</a>
-          <a data-page="cards">Cards</a>
-          <a data-page="statistics">Statistics</a>
+          <a class="active">Dashboard</a>
         </nav>
       </div>
-      <!-- <div class="nav"><a>Settings</a><a>Log out</a></div> -->
     </aside>
 
     <main class="main">
-      <section id="dashboard" class="page active">
-        <h2>Dashboard Overview</h2>
-        <div class="metrics">
-          <div class="metric" style="background: linear-gradient(135deg,#9ee9ff,#6dd3ff);">
-            <h4>Total Balance</h4><div class="value">$2,324.64</div><div class="muted">+22% than last month</div>
-          </div>
-          <div class="metric" style="background: linear-gradient(135deg,#ffc4d1,#ffdfe6);">
-            <h4>Total Expenses</h4><div class="value">$2,103.77</div><div class="muted">-11% than last month</div>
-          </div>
-          <div class="metric" style="background: linear-gradient(135deg,#b9ffde,#6affbf);">
-            <h4>Total Savings</h4><div class="value">$5,876.23</div><div class="muted">+15% growth</div>
-          </div>
+      <h2>Dashboard Overview</h2>
+      <div class="metrics">
+        <div class="metric" style="background: linear-gradient(135deg,#9ee9ff,#6dd3ff);">
+          <h4>Total Balance</h4>
+          <div class="value">$2,324.64</div>
+          <div class="muted">+22% than last month</div>
         </div>
-
-        <div class="two-col">
-          <div class="panel">
-            <h3>Income Trend</h3>
-            <canvas id="incomeChart" height="160"></canvas>
-          </div>
-          <div class="panel">
-            <h3>Spending Breakdown</h3>
-            <canvas id="donutChart" height="160"></canvas>
-          </div>
+        <div class="metric" style="background: linear-gradient(135deg,#ffc4d1,#ffdfe6);">
+          <h4>Total Expenses</h4>
+          <div class="value">$2,103.77</div>
+          <div class="muted">-11% than last month</div>
         </div>
-
-        <div class="two-col">
-          <div class="panel">
-            <h3>Savings Goal</h3>
-            <p style="color: var(--muted);">You’ve saved 75% of your goal this month!</p>
-            <div class="progress-bar"><div class="progress-fill" style="background: var(--accent-green); width: 0;"></div></div>
-          </div>
-          <div class="panel">
-            <h3>Recent Activity</h3>
-            <ul class="recent-list">
-              <li>💳 Payment to Netflix - $14.99</li>
-              <li>💼 Salary credited - $3,000</li>
-              <li>🛍️ Amazon purchase - $56.00</li>
-              <li>🍔 Lunch with friends - $22.00</li>
-            </ul>
-          </div>
+        <div class="metric" style="background: linear-gradient(135deg,#b9ffde,#6affbf);">
+          <h4>Total Savings</h4>
+          <div class="value">$5,876.23</div>
+          <div class="muted">+15% growth</div>
         </div>
-      </section>
+      </div>
 
-      <section id="invest" class="page">
-        <h2>Invest Section</h2>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Income Trend</h3>
+          <canvas id="incomeChart" height="160"></canvas>
+        </div>
+        <div class="panel">
+          <h3>Spending Breakdown</h3>
+          <canvas id="donutChart" height="160"></canvas>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h3>Savings Goal</h3>
+          <p style="color: var(--muted);">You’ve saved 75% of your goal this month!</p>
+          <div class="progress-bar"><div class="progress-fill" style="background: var(--accent-green);"></div></div>
+        </div>
+        <div class="panel">
+          <h3>Recent Activity</h3>
+          <ul class="recent-list">
+            <li>💳 Payment to Netflix - $14.99</li>
+            <li>💼 Salary credited - $3,000</li>
+            <li>🛍️ Amazon purchase - $56.00</li>
+            <li>🍔 Lunch with friends - $22.00</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Investments</h3>
         <p style="color: var(--muted); margin-top: 10px;">Track and manage your investments here. Coming soon!</p>
-      </section>
+      </div>
 
-      <section id="transactions" class="page">
-        <h2>Transactions</h2>
-        <div class="panel">
-          <table>
-            <tr><td>Amazon</td><td align="right">-$120.50</td></tr>
-            <tr><td>Freelance Income</td><td align="right">+$500.00</td></tr>
-            <tr><td>Starbucks</td><td align="right">-$6.50</td></tr>
-          </table>
-        </div>
-      </section>
+      <div class="panel">
+        <h3>Transactions</h3>
+        <table>
+          <tr><td>Amazon</td><td align="right">-$120.50</td></tr>
+          <tr><td>Freelance Income</td><td align="right">+$500.00</td></tr>
+          <tr><td>Starbucks</td><td align="right">-$6.50</td></tr>
+        </table>
+      </div>
 
-      <section id="cards" class="page">
-        <h2>Cards</h2>
-        <div class="panel">Manage your debit and credit cards securely. Coming soon!</div>
-      </section>
+      <div class="panel">
+        <h3>Cards</h3>
+        <p>Manage your debit and credit cards securely. Coming soon!</p>
+      </div>
 
-      <section id="statistics" class="page">
-        <h2>Statistics</h2>
-        <div class="panel">
-          <canvas id="statsChart" height="150"></canvas>
-        </div>
-      </section>
+      <div class="panel">
+        <h3>Statistics</h3>
+        <canvas id="statsChart" height="150"></canvas>
+      </div>
     </main>
   </div>
 
   <script>
-    const menuLinks = document.querySelectorAll('.nav a[data-page]');
-    const pages = document.querySelectorAll('section.page');
-
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuLinks.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-        const target = link.getAttribute('data-page');
-        pages.forEach(p => p.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
-      });
-    });
-
     const incomeCtx = document.getElementById('incomeChart').getContext('2d');
     new Chart(incomeCtx, {
       type: 'line',
@@ -334,7 +291,7 @@
 
     window.addEventListener('load', () => {
       const fill = document.querySelector('.progress-fill');
-      setTimeout(() => fill.style.width = '75%', 500);
+      fill.style.width = '75%';
     });
   </script>
 </body>
