@@ -2237,3 +2237,130 @@ figure figcaption {
       background-color: rgba(255, 255, 255, 0.5); }
     .single-text .owl-dots .owl-dot.active > span {
       background-color: #fff; }
+
+      btn {
+    transition: .5s;
+    font-weight: 500;
+}
+
+.btn-primary,
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #3d7ea1;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+
+.fixed-top {
+    transition: .5s;
+}
+
+.top-bar {
+    height: 45px;
+    border-bottom: 1px solid rgba(53, 94, 252, .07);
+}
+
+.navbar-brand img {
+    width: 250px;
+    height: 150px;
+    margin-top: -50px;
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar .navbar-nav .nav-link {
+    padding: 25px 15px;
+    color: var(--tertiary);
+    font-weight: 500;
+    outline: none;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color: #3d7ea1;
+}
+
+
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav {
+        margin-top: 10px;
+        border-top: 1px solid rgba(0, 0, 0, .07);
+        background: #FFFFFF;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        padding: 10px 0;
+    }
+
+    /* Show dropdowns properly on mobile */
+    .navbar .nav-item .dropdown-menu {
+        position: static;
+        float: none;
+        background: #fff;
+        border: none;
+        box-shadow: none;
+        margin-top: 0;
+    }
+
+    .navbar .nav-item .dropdown-menu .dropdown-item {
+        padding: 10px 15px;
+    }
+
+    .navbar .nav-item .dropdown-menu.show {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        visibility: hidden;
+        top: 100%;
+        transform: rotateX(-75deg);
+        transform-origin: 0% 0%;
+        transition: .5s;
+        opacity: 0;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        transform: rotateX(0deg);
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}

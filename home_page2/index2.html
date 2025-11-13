@@ -990,6 +990,16 @@ document.getElementById("contactForm").addEventListener("submit", function(event
   }
 });
 
+
+$(document).on('click', '.site-mobile-menu a', function(e) {
+    let link = $(this).attr('href');
+
+    
+    if (link.includes('.html') || link.includes('../')) {
+        window.location.href = link;
+        return false;
+    }
+});
 </script>
 </body>
 </html>
